@@ -4,19 +4,41 @@ namespace PousadaDaPedra.Domain.Entity;
 
 public class Tarefa
 {
+    // --- ESTADO E INVARIANTES (PROPRIEDADES) ---
+    // O 'private set' garante o ENCAPSULAMENTO: o estado só muda através de métodos de negócio.
     public int Id { get; private set; }
-    public string Titulo { get; private set; } = string.Empty;
-    public string Descricao { get; private set; } = string.Empty;
-    public Prioridade Prioridade { get; private set; } = Prioridade.Baixa;
+    public string Titulo { get; private set; }
+    public string Descricao { get; private set; }
+    public Prioridade Prioridade { get; private set; }
     public Status Status { get; private set; } = Status.Pendente;
-    public Dificuldade Dificuldade { get; private set; } = Dificuldade.Facil;
+    public Dificuldade Dificuldade { get; private set; }
     public List<Usuario> Responsaveis { get; private set; }
-    public DateTime DataInicio { get; private set; }
+    public DateTime? DataInicio { get; private set; }
     public DateTime? DataTermino { get; private set; }
     public DateTime? Prazo { get; private set; }
-    
-    
 
+
+    // --- CONSTRUTOR DE DOMÍNIO ---
+    // Garante que uma Tarefa nunca nasça em um estado inválido.
+    public Tarefa(string titulo, string descricao, Prioridade? prioridade, Dificuldade? dificuldade, List<Usuario> responsaveis)
+    {
+        if (responsaveis == null || responsaveis.Count == 0)
+            throw new ArgumentException("É preciso atribuir ao menos um responsavel");
+        if (titulo == null || titulo.Trim() == "")
+            throw new ArgumentException("É necessario o titulo");
+        if (descricao == null || descricao.Trim() == "")
+            throw new ArgumentException("É necessario a descrição");
+        
+        Titulo = titulo;
+        Descricao = descricao;
+        Responsaveis = new List<Usuario>(responsaveis);
+        Prioridade = prioridade ?? Prioridade.Baixa;
+        Dificuldade = dificuldade ?? Dificuldade.Facil;
+    }
+    
+    
+    // --- COMPORTAMENTOS (MÉTODOS DE NEGÓCIO) ---
+    // Em Clean Arch, não usamos "Setters". Usamos métodos que descrevem a intenção do negócio.
     public void Iniciar(DateTime? prazo)
     {
         if (Status == Status.Finalizada || Status == Status.EmAndamento)
@@ -37,7 +59,6 @@ public class Tarefa
         DataInicio = DateTime.UtcNow;
         Prazo = prazo;
     }
-    
 
     public void Finalizar()
     {
@@ -50,7 +71,6 @@ public class Tarefa
         DataTermino = DateTime.UtcNow;
     }
     
-
     public void Reabrir(DateTime newPrazo)
     {
         if (Status == Status.EmAndamento || Status == Status.Pendente)
@@ -63,9 +83,8 @@ public class Tarefa
         Status = Status.EmAndamento;
         DataTermino = null;
         Prazo = newPrazo;
-        //de uma atenção nesta parte (eu deveria ter um parametro no metodo? tipo um DateTime novoPrazo?
+        
     }
-
     
     public void AdicionarResponsavel(Usuario newResponsavel)
     {
@@ -77,26 +96,22 @@ public class Tarefa
         Responsaveis.Add(newResponsavel);
     }
     
-
     public void AlterarPrazo(DateTime newPrazo)
     {
         if (Status == Status.Finalizada)
             throw new ArgumentException("Você não pode mudar o Prazo de uma tarefa finalizada");
-        if (DataInicio >= newPrazo)
+        if (DataInicio == null || DataInicio >= newPrazo)
             throw new ArgumentException("Você não pode mudar o prazo para uma data anterior ou igual a data de inicil");
 
         Prazo = newPrazo;
-
     }
     
-
     public void AlterarDescricao(string newDescricao)
     {
         if (Status == Status.Finalizada)
             throw new ArgumentException("Você não pode mudar a descrição de uma tarefa finalizada");
         Descricao = newDescricao;
     }
-
     
     public void RemoverResponsavel(Usuario newResponsavel)
     {
@@ -107,7 +122,6 @@ public class Tarefa
 
         Responsaveis.Remove(newResponsavel);
     }
-
     
     public void AlterarDificuldade(Dificuldade newDificuldade)
     {
@@ -119,7 +133,6 @@ public class Tarefa
         Dificuldade = newDificuldade;
     }
     
-    
     public void AlterarPrioridade( Prioridade newPrioridade) 
     {
         if (Status == Status.Finalizada)
@@ -129,6 +142,5 @@ public class Tarefa
 
         Prioridade = newPrioridade;
     }
-    
     
 }
