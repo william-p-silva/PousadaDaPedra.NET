@@ -26,9 +26,9 @@ public class TarefaConfiguration : IEntityTypeConfiguration<Tarefa>
         builder.Property(d => d.Prazo).HasColumnType("timestamp with time zone");
 
         //Convertendo os Enums como Strings no banco
-        builder.Property(e => e.Prioridade).HasConversion<string>();
-        builder.Property(e => e.Dificuldade).HasConversion<string>();
-        builder.Property(e => e.Status).HasConversion<string>();
+        builder.Property(e => e.Prioridade).HasConversion<string>().HasMaxLength(30);
+        builder.Property(e => e.Dificuldade).HasConversion<string>().HasMaxLength(30);
+        builder.Property(e => e.Status).HasConversion<string>().HasMaxLength(30);
         
         
         // Relacionamento Muitos-para-Muitos
