@@ -10,7 +10,8 @@ public class Usuario
     public string Senha { get; private set; }
     public Cargo Cargo { get; private set; }
 
-
+    private Usuario(){}
+    
     public Usuario(string nome, string email, string senha, Cargo? cargo)
     {
         //Sempre verificar se é null primeiro

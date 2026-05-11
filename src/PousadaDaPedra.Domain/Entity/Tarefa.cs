@@ -17,6 +17,8 @@ public class Tarefa
     public DateTime? DataTermino { get; private set; }
     public DateTime? Prazo { get; private set; }
 
+    
+    private Tarefa(){}
 
     // --- CONSTRUTOR DE DOMÍNIO ---
     // Garante que uma Tarefa nunca nasça em um estado inválido.
