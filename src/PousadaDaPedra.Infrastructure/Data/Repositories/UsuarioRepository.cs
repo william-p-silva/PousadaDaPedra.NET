@@ -30,6 +30,11 @@ public class UsuarioRepository : IUsuarioRepository
         return await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
     }
 
+    public async Task<Usuario> BuscarPorEmail(string email)
+    {
+        return await _context.Usuarios.FirstOrDefaultAsync(e => e.Email == email);
+    }
+
     public void Remover(Usuario user)
     {
         _context.Usuarios.Remove(user);

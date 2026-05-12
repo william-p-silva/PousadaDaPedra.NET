@@ -14,18 +14,22 @@ public class TarefaRepository : ITarefaRepository
         _context = context;
     }
     
-    public async Task<List<Tarefa>> ListarTarefas()
+    public async Task<List<Tarefa>> ListarTarefas(bool responsavel)
     {
-        return await _context.Tarefas.AsNoTracking().ToListAsync();
+        var query = _context.Tarefas.AsNoTracking().AsQueryable();
+        if (responsavel)
+            query = query.Include(r => r.Responsaveis);
+        
+        return await query.ToListAsync();
     }
 
-    public async Task<Tarefa?> BuscarPorId(int id)
+    public async Task<Tarefa?> BuscarPorId(int id, bool responsavel)
     {
-        var tarefaId = await _context.Tarefas
-            .Include(r => r.Responsaveis)
-            .FirstOrDefaultAsync(i => i.Id == id);
-        
-        return tarefaId;
+        var query = _context.Tarefas.AsQueryable();
+        if (responsavel)
+            query = query.Include(r => r.Responsaveis);
+
+        return await query.FirstOrDefaultAsync(t => t.Id == id);
     }
 
     public void RemoverPorId(Tarefa tarefa)

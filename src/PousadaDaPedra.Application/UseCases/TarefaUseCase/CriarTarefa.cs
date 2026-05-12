@@ -18,7 +18,6 @@ public class CriarTarefa
         _repositoryUser = repositoryUser;
         _iUnitOfWork = iUnitOfWork;
     }
-
     
     
     public async Task<CriarResponseDTO> Execute(CriarRequestDTO dto)
@@ -32,9 +31,7 @@ public class CriarTarefa
         if (users.Count == 0 || users.Count != dto.Responsaveis.Count)
             throw new ArgumentException("Erro um dos Responsaveis era invalido");
         
-        
-        
-        var tarefa = new Tarefa(dto.Titulo, dto.Descricao,
+        Tarefa tarefa = new Tarefa(dto.Titulo, dto.Descricao,
             dto.Prioridade, dto.Dificuldade,
             users);
         
@@ -50,5 +47,6 @@ public class CriarTarefa
             Descricao = tarefa.Descricao,
             Prioridade = tarefa.Prioridade,
         };
+        
     }
 }

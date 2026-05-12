@@ -9,8 +9,8 @@ public class ListaResponseDTO
     public string Descricao { get; set; }
     public Prioridade Prioridade { get; set; }
     public Dificuldade Dificuldade { get; set; }
-    public List<int> Responsaveis { get; set; }
-    public DateTime? DataInicio { get; private set; }
-    public DateTime? DataTermino { get; private set; }
-    public DateTime? Prazo { get; private set; }
+    public List<int>? Responsaveis { get; set; }
+    public DateTime? DataInicio { get; set; }
+    public DateTime? DataTermino { get; set; }
+    public DateTime? Prazo { get; set; }
 }

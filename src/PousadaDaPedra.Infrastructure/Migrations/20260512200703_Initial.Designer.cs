@@ -12,7 +12,7 @@ using PousadaDaPedra.Infrastructure.Data.Context;
 namespace PousadaDaPedra.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260511210024_Initial")]
+    [Migration("20260512200703_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -94,7 +94,7 @@ namespace PousadaDaPedra.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("Senha")
+                    b.Property<string>("SenhaHash")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");

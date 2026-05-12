@@ -40,7 +40,7 @@ namespace PousadaDaPedra.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Nome = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    Senha = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    SenhaHash = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Cargo = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>

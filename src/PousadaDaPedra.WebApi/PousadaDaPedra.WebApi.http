@@ -1,6 +1,6 @@
 @PousadaDaPedra.WebApi_HostAddress = http://localhost:5171
 
-GET {{PousadaDaPedra.WebApi_HostAddress}}/weatherforecast/
+GET {{PousadaDaPedra.WebApi_HostAddress}}/api/Tarefa/criar
 Accept: application/json
 
 ###

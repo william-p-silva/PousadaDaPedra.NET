@@ -22,7 +22,7 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
         builder.HasIndex(e => e.Email)
             .IsUnique();
 
-        builder.Property(s => s.Senha)
+        builder.Property(s => s.SenhaHash)
             .IsRequired()
             .HasMaxLength(255);
         

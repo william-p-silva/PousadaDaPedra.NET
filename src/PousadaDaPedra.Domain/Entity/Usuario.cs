@@ -7,7 +7,7 @@ public class Usuario
     public int Id { get; private set; }
     public string Nome { get; private set; }
     public string Email { get; private set; }
-    public string Senha { get; private set; }
+    public string SenhaHash { get; private set; }
     public Cargo Cargo { get; private set; }
 
     private Usuario(){}
@@ -15,16 +15,16 @@ public class Usuario
     public Usuario(string nome, string email, string senha, Cargo? cargo)
     {
         //Sempre verificar se é null primeiro
-        if (nome == null || nome.Trim() == "" )
+        if (nome == null || String.IsNullOrWhiteSpace(nome) )
             throw new ArgumentException("O Nome é obrigatorio");
-        if (email == null || email.Trim() == "" )
+        if (email == null || String.IsNullOrWhiteSpace(email) )
             throw new ArgumentException("O Email é obrigatorio");
-        if (senha == null || senha.Trim() == "")
-            throw new ArgumentException("A Senha é obrigatorio");
+        if (cargo != null && cargo != Cargo.Funcionario && cargo != Cargo.Gerente)
+            throw new ArgumentException("Cargo Invalido");
 
         Nome = nome;
         Email = email;
-        Senha = senha;
+        SenhaHash = senha;
         Cargo = cargo ?? Cargo.Funcionario;
     }
 
@@ -39,26 +39,17 @@ public class Usuario
 
     public void AlterarNome(string newNome, string confirmSenha)
     {
-        if (confirmSenha != this.Senha)
-            throw new ArgumentException("Informações Invalidas");
-
         Nome = newNome;
     }
     
     public void AlterarSenha(string newSenha, string confirmSenha)
     {
-        if (confirmSenha != this.Senha)
-            throw new ArgumentException("Informações Invalidas");
-
-        Senha = newSenha;
+        SenhaHash = newSenha;
     }
     
     
     public void AlterarEmail(string newEmail, string confirmSenha)
     {
-        if (confirmSenha != this.Senha)
-            throw new ArgumentException("Informações Invalidas");
-
         Email = newEmail;
     }
 }

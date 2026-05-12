@@ -16,7 +16,7 @@ public class FinalizarTarefa
 
     public async Task<FinalizarResponseDTO> Execute(FinalizarRequestDTO dto)
     {
-        var tarefa = await _repository.BuscarPorId(dto.Id);
+        var tarefa = await _repository.BuscarPorId(dto.Id, false);
         if (tarefa == null)
             throw new ArgumentException("Tarefa Inexistente");
 
