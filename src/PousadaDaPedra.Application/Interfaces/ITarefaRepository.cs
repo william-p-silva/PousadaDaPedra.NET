@@ -5,7 +5,7 @@ namespace PousadaDaPedra.Application.Interfaces;
 public interface ITarefaRepository
 {
     Task<List<Tarefa>> ListarTarefas();
-    Task<Tarefa> BuscarPorId(int id);
-    Task RemoverPorId(int id);
-    Task<bool> Salvar(Tarefa tarefa);
+    Task<Tarefa?> BuscarPorId(int id);
+    void RemoverPorId(Tarefa tarefa);
+    Task Salvar(Tarefa tarefa);
 }

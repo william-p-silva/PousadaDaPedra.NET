@@ -1,38 +1,45 @@
 ﻿using PousadaDaPedra.Application.DTOs.TarefaDTO;
 using PousadaDaPedra.Application.Interfaces;
 using PousadaDaPedra.Domain.Entity;
+using PousadaDaPedra.Domain.Enums;
 
 namespace PousadaDaPedra.Application.UseCases.TarefaUseCase;
 
 public class CriarTarefa
 {
-    protected readonly ITarefaRepository _repositoryTarefa;
-    protected readonly IUsuarioRepository _repositoryUser;
+    private readonly ITarefaRepository _repositoryTarefa;
+    private readonly IUsuarioRepository _repositoryUser;
+    private readonly IUnitOfWork _iUnitOfWork;
 
-    public CriarTarefa(ITarefaRepository repository, IUsuarioRepository repositoryUser)
+    public CriarTarefa(ITarefaRepository repositoryTarefa,
+        IUsuarioRepository repositoryUser, IUnitOfWork iUnitOfWork)
     {
-        _repositoryTarefa = repository;
+        _repositoryTarefa = repositoryTarefa;
         _repositoryUser = repositoryUser;
+        _iUnitOfWork = iUnitOfWork;
     }
 
     
     
     public async Task<CriarResponseDTO> Execute(CriarRequestDTO dto)
     {
-        if (dto.Responsaveis.Count == 0)
+        if (dto.Responsaveis == null || dto.Responsaveis.Count == 0)
             throw new ArgumentException("Erro é necessario pelo menos um Responsavel");
-        
-        List<Usuario> UsuariosResponsaveis = new();
        
-        var users = await _repositoryUser.BuscarPorListaIds(dto.Responsaveis);
-        UsuariosResponsaveis.AddRange(users);
+        var users = await _repositoryUser
+            .BuscarPorListaIds(dto.Responsaveis, Cargo.Gerente);
         
-        if (UsuariosResponsaveis.Count == 0)
-            throw new ArgumentException("Erro é necessario pelo menos um Responsavel");
+        if (users.Count == 0 || users.Count != dto.Responsaveis.Count)
+            throw new ArgumentException("Erro um dos Responsaveis era invalido");
         
-        var tarefa = new Tarefa(dto.Titulo, dto.Descricao, dto.Prioridade, dto.Dificuldade, UsuariosResponsaveis);
+        
+        
+        var tarefa = new Tarefa(dto.Titulo, dto.Descricao,
+            dto.Prioridade, dto.Dificuldade,
+            users);
         
         await _repositoryTarefa.Salvar(tarefa);
+        await _iUnitOfWork.Commit();
         
         return new CriarResponseDTO()
         {

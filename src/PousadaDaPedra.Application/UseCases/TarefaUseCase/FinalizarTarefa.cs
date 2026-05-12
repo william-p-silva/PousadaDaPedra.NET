@@ -5,37 +5,32 @@ namespace PousadaDaPedra.Application.UseCases.TarefaUseCase;
 
 public class FinalizarTarefa
 {
-    protected readonly ITarefaRepository _repository;
+    private readonly ITarefaRepository _repository;
+    private readonly IUnitOfWork _iUnitOfWork;
 
-    public FinalizarTarefa(ITarefaRepository repository)
+    public FinalizarTarefa(ITarefaRepository repository, IUnitOfWork iUnitOfWork)
     {
         _repository = repository;
+        _iUnitOfWork = iUnitOfWork;
     }
-    
+
     public async Task<FinalizarResponseDTO> Execute(FinalizarRequestDTO dto)
     {
-        try
+        var tarefa = await _repository.BuscarPorId(dto.Id);
+        if (tarefa == null)
+            throw new ArgumentException("Tarefa Inexistente");
+
+        tarefa.Finalizar();
+        await _iUnitOfWork.Commit();
+
+        return new FinalizarResponseDTO
         {
-            var tarefa = await _repository.BuscarPorId(dto.Id);
-            if (tarefa == null)
-                throw new ArgumentException("Tarefa Inexistente");
-            
-            tarefa.Finalizar();
-            await _repository.Salvar(tarefa);
-            
-            return new FinalizarResponseDTO()
-            {
-                DataInicio = tarefa?.DataInicio,
-                DataTermino = tarefa?.DataTermino,
-                Descricao = tarefa.Descricao,
-                Status = tarefa.Status,
-                Id = tarefa.Id,
-                Titulo = tarefa.Titulo,
-            };
-        }
-        catch (Exception ex)
-        {
-            throw new ArgumentException("ERRO ao tentar finalizar", ex.Message);
-        }
+            DataInicio = tarefa?.DataInicio,
+            DataTermino = tarefa?.DataTermino,
+            Descricao = tarefa?.Descricao ?? "Sem descrição",
+            Status = tarefa.Status,
+            Id = tarefa.Id,
+            Titulo = tarefa.Titulo
+        };
     }
 }

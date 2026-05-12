@@ -1,9 +1,8 @@
-﻿using PousadaDaPedra.Domain.Entity;
-using PousadaDaPedra.Domain.Enums;
+﻿using PousadaDaPedra.Domain.Enums;
 
 namespace PousadaDaPedra.Application.DTOs.TarefaDTO;
 
-public class CriarResponseDTO
+public class ListaResponseDTO
 {
     public int Id { get; set; }
     public string Titulo { get; set; }
@@ -11,6 +10,7 @@ public class CriarResponseDTO
     public Prioridade Prioridade { get; set; }
     public Dificuldade Dificuldade { get; set; }
     public List<int> Responsaveis { get; set; }
-    public Status Status { get; private set; } = Status.Pendente;
-    
+    public DateTime? DataInicio { get; private set; }
+    public DateTime? DataTermino { get; private set; }
+    public DateTime? Prazo { get; private set; }
 }
