@@ -2,7 +2,7 @@
 
 namespace PousadaDaPedra.Application.DTOs.TarefaDTO;
 
-public class ListaResponseDTO
+public class TarefaResponseDTO
 {
     public int Id { get; set; }
     public string Titulo { get; set; }

@@ -73,13 +73,13 @@ public class Tarefa
         DataTermino = DateTime.UtcNow;
     }
     
-    public void Reabrir(DateTime newPrazo)
+    public void Reabrir(DateTime? newPrazo) 
     {
         if (Status == Status.EmAndamento || Status == Status.Pendente)
             throw new ArgumentException("Você não pode Reabrir um tarefa que já está aberta");
         if (Responsaveis.Count <= 0)
             throw new ArgumentException("É preciso um responsavel para Reabrir a Tarefa");
-        if (newPrazo <= DateTime.UtcNow)
+        if (newPrazo <= DateTime.UtcNow || newPrazo == null)
             throw new ArgumentException("É preciso um novo prazo para reabrir um tarefa");
         
         Status = Status.EmAndamento;
@@ -98,20 +98,24 @@ public class Tarefa
         Responsaveis.Add(newResponsavel);
     }
     
-    public void AlterarPrazo(DateTime newPrazo)
+    public void AlterarPrazo(DateTime? newPrazo)
     {
         if (Status == Status.Finalizada)
             throw new ArgumentException("Você não pode mudar o Prazo de uma tarefa finalizada");
         if (DataInicio == null || DataInicio >= newPrazo)
-            throw new ArgumentException("Você não pode mudar o prazo para uma data anterior ou igual a data de inicil");
-
+            throw new ArgumentException("Você não pode mudar o prazo para uma data anterior ou igual a data de inicio");
+        if (newPrazo == null)
+            throw new ArgumentException("Prazo invalido");
         Prazo = newPrazo;
     }
     
-    public void AlterarDescricao(string newDescricao)
+    public void AlterarDescricao(string? newDescricao)
     {
         if (Status == Status.Finalizada)
             throw new ArgumentException("Você não pode mudar a descrição de uma tarefa finalizada");
+        if (String.IsNullOrWhiteSpace(Descricao))
+            throw new ArgumentException("Descrição invalida");
+        
         Descricao = newDescricao;
     }
     
@@ -131,7 +135,7 @@ public class Tarefa
             throw new ArgumentException("Você não pode mudar a dificuldade se a tarefa já foi finalizada");
         if (newDificuldade == this.Dificuldade)
             throw new ArgumentException("Você precisa de uma nova Dificuldade");
-
+        
         Dificuldade = newDificuldade;
     }
     

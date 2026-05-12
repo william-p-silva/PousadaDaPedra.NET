@@ -1,5 +1,6 @@
 ﻿using PousadaDaPedra.Application.DTOs.TarefaDTO;
 using PousadaDaPedra.Application.Interfaces;
+using PousadaDaPedra.Domain.Entity;
 
 namespace PousadaDaPedra.Application.UseCases.TarefaUseCase;
 
@@ -14,9 +15,9 @@ public class FinalizarTarefa
         _iUnitOfWork = iUnitOfWork;
     }
 
-    public async Task<FinalizarResponseDTO> Execute(FinalizarRequestDTO dto)
+    public async Task<FinalizarResponseDTO> Execute(int id)
     {
-        var tarefa = await _repository.BuscarPorId(dto.Id, false);
+        Tarefa? tarefa = await _repository.BuscarPorId(id, true);
         if (tarefa == null)
             throw new ArgumentException("Tarefa Inexistente");
 
@@ -27,7 +28,7 @@ public class FinalizarTarefa
         {
             DataInicio = tarefa?.DataInicio,
             DataTermino = tarefa?.DataTermino,
-            Descricao = tarefa?.Descricao ?? "Sem descrição",
+            Descricao = tarefa.Descricao,
             Status = tarefa.Status,
             Id = tarefa.Id,
             Titulo = tarefa.Titulo

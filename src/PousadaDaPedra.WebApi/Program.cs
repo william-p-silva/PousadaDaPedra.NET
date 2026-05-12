@@ -35,6 +35,10 @@ builder.Services.AddScoped<CriarTarefa>();
 builder.Services.AddScoped<FinalizarTarefa>();
 builder.Services.AddScoped<IniciarTarefa>();
 builder.Services.AddScoped<ListarTarefasUseCase>();
+builder.Services.AddScoped<AtualizarTarefaUseCase>();
+builder.Services.AddScoped<ReabrirUseCase>();
+
+// Token JWT
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
 
 //UseCases de Usuarios

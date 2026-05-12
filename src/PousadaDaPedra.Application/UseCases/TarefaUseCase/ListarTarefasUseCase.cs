@@ -11,10 +11,10 @@ namespace PousadaDaPedra.Application.UseCases.TarefaUseCase
             _tarefaRepository = tarefaRepository;
         }
 
-        public async Task<List<ListaResponseDTO>> Execute(bool responsavel)
+        public async Task<List<TarefaResponseDTO>> Execute(bool responsavel)
         {
             var tarefas = await _tarefaRepository.ListarTarefas(responsavel);
-            return tarefas.Select(t => new ListaResponseDTO
+            return tarefas.Select(t => new TarefaResponseDTO
             {
                 Id = t.Id,
                 Titulo = t.Titulo,
@@ -28,12 +28,12 @@ namespace PousadaDaPedra.Application.UseCases.TarefaUseCase
             }).ToList();
         }
 
-        public async Task<ListaResponseDTO> ExecuteBuscaId(int id, bool responsavel)
+        public async Task<TarefaResponseDTO> ExecuteBuscaId(int id, bool responsavel)
         {
             var tarefa = await _tarefaRepository.BuscarPorId(id, responsavel);
             if (tarefa == null)
                 throw new Exception("Tarefa não encontrada");
-            return new ListaResponseDTO
+            return new TarefaResponseDTO
             {
                 Id = tarefa.Id,
                 Titulo = tarefa.Titulo,

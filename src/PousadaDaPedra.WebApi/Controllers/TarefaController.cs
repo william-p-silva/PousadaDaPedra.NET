@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PousadaDaPedra.Application.DTOs.TarefaDTO;
 using PousadaDaPedra.Application.UseCases.TarefaUseCase;
 
@@ -13,12 +14,23 @@ public class TarefaController : ControllerBase
     private readonly FinalizarTarefa _finalizarTarefa;
     private readonly IniciarTarefa _iniciarTarefa;
     private readonly ListarTarefasUseCase _listarTarefas;
-    public TarefaController(CriarTarefa criarTarefa, FinalizarTarefa finalizarTarefa, IniciarTarefa iniciarTarefa, ListarTarefasUseCase listarTarefasUseCase)
+    private readonly AtualizarTarefaUseCase _atualizarTarefaUseCase;
+    private readonly ReabrirUseCase _reabrirUseCase;
+    public TarefaController(
+        CriarTarefa criarTarefa
+        ,FinalizarTarefa finalizarTarefa
+        ,IniciarTarefa iniciarTarefa
+        ,ListarTarefasUseCase listarTarefasUseCase
+        ,AtualizarTarefaUseCase atualizarTarefaUseCase
+        ,ReabrirUseCase reabrirUseCase
+        )
     {
         _criarTarefa = criarTarefa;
         _finalizarTarefa = finalizarTarefa;
         _iniciarTarefa = iniciarTarefa;
         _listarTarefas = listarTarefasUseCase;
+        _atualizarTarefaUseCase = atualizarTarefaUseCase;
+        _reabrirUseCase = reabrirUseCase;
     }
     
     
@@ -28,11 +40,12 @@ public class TarefaController : ControllerBase
         var tarefa = await _criarTarefa.Execute(dto);
         return Ok(tarefa);
     }
-
+    
+        //var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value);
     [HttpPut("finalizar")]
     public async Task<IActionResult> FinalizarTarefa([FromBody] FinalizarRequestDTO dto)
     {
-        await _finalizarTarefa.Execute(dto);
+        await _finalizarTarefa.Execute(dto.Id);
         return Ok();
     }
 
@@ -54,6 +67,22 @@ public class TarefaController : ControllerBase
     public async Task<IActionResult> BuscarPorId(int id)
     {
         var tarefa = await _listarTarefas.ExecuteBuscaId(id, true);
+        return Ok(tarefa);
+    }
+
+
+    [HttpPut("atualizar")]
+    public async Task<IActionResult> Atualizar([FromBody] AtualizarRequestDTO dto)
+    {
+        var tarefa = await _atualizarTarefaUseCase.Execute(dto);
+        return Ok(tarefa);
+    }
+
+
+    [HttpPut("reabrir")]
+    public async Task<IActionResult> Reabrir([FromBody] ReabrirRequestDTO dto)
+    {
+        var tarefa = await _reabrirUseCase.Execute(dto.newPrazo, dto.Id);
         return Ok(tarefa);
     }
 
