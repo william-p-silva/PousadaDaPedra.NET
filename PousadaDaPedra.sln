@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PousadaDaPedra.WebApi", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{48FE386E-487D-404D-97FF-1A312B3FEC05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "src\Tests\TestProject1\TestProject1.csproj", "{7F5F6DCF-218F-4D78-9822-E0EA268C1D1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PousadaDaPedraApi.Tests", "src\Tests\PousadaDaPedraApi.Tests\PousadaDaPedraApi.Tests.csproj", "{7F5F6DCF-218F-4D78-9822-E0EA268C1D1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{37C23133-C39F-4E31-B9C0-9F337228B57C}"
 EndProject

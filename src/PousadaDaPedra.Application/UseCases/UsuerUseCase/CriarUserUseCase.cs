@@ -24,6 +24,11 @@ public class CriarUserUseCase
         if (dto.Senha == null || String.IsNullOrWhiteSpace(dto.Senha))
             throw new ArgumentException("A senha é obrigatorio");
 
+        var userExiste = await _usuarioRepository.BuscarPorEmail(dto.Email);
+        if (userExiste != null)
+            throw new ArgumentException("Usuario existente");
+        
+        
         var senhaHash = _hasher.SenhaHash(dto.Senha);
         
         Usuario user = new Usuario(dto.Nome,
