@@ -55,7 +55,7 @@ public class LoginUserTest
     }
 
     [Fact]
-    public async Task DeveRetornarException_QuandoNaoExistirUsuario()
+    public async Task DeveRetornarExcecao_QuandoNaoExistirUsuario()
     {
         var userEmail = "teste@gmail.com";
         var senha = "teste$123";
@@ -83,7 +83,7 @@ public class LoginUserTest
     }
 
     [Fact]
-    public async Task DeveLancarExcecaoQuandoSenhaForVazia()
+    public async Task DeveLancarExcecao_QuandoSenhaForVazia()
     {
         var userEmail = "teste@gmail.com";
         var senha = " ";
@@ -113,7 +113,7 @@ public class LoginUserTest
     }
     
     [Fact]
-    public async Task DeveLancarExcecaoQuandoSenhaForInvalida()
+    public async Task DeveLancarExcecao_QuandoSenhaForInvalida()
     {
         var userEmail = "teste@gmail.com";
         var senha = "Teste$123";

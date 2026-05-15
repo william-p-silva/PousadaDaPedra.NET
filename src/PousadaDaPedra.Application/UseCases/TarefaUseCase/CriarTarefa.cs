@@ -28,7 +28,7 @@ public class CriarTarefa
         var users = await _repositoryUser
             .BuscarPorListaIds(dto.Responsaveis, Cargo.Gerente);
         
-        if (users.Count == 0 || users.Count != dto.Responsaveis.Count)
+        if (users == null || users.Count == 0 || users.Count != dto.Responsaveis.Count)
             throw new ArgumentException("Erro um dos Responsaveis era invalido");
         
         Tarefa tarefa = new Tarefa(dto.Titulo, dto.Descricao,
