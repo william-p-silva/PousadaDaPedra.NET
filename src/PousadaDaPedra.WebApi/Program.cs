@@ -8,6 +8,7 @@ using PousadaDaPedra.Infrastructure.Data.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using PousadaDaPedra.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,9 +78,15 @@ builder.Services.AddAuthentication(options =>
             };
     });
 
+builder.Services.AddAuthorization();
+
 
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
 {
@@ -90,7 +97,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseHttpsRedirection();
 
 app.MapControllers();
 

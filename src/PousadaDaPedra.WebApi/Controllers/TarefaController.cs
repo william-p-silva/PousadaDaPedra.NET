@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PousadaDaPedra.Application.DTOs.ResponseDTO;
 using PousadaDaPedra.Application.DTOs.TarefaDTO;
 using PousadaDaPedra.Application.UseCases.TarefaUseCase;
 
@@ -38,36 +39,56 @@ public class TarefaController : ControllerBase
     public async Task<IActionResult> CriarTarefa([FromBody] CriarRequestDTO dto)
     {
         var tarefa = await _criarTarefa.Execute(dto);
-        return Ok(tarefa);
+        return Ok(new SuccessApiDTO<CriarResponseDTO>()
+        {
+            Data = tarefa,
+            Success = true,
+        });
     }
     
         //var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value);
     [HttpPut("finalizar")]
     public async Task<IActionResult> FinalizarTarefa([FromBody] FinalizarRequestDTO dto)
     {
-        await _finalizarTarefa.Execute(dto.Id);
-        return Ok();
+        var tarefa = await _finalizarTarefa.Execute(dto.Id);
+        return Ok(new SuccessApiDTO<FinalizarResponseDTO>()
+        {
+            Data = tarefa,
+            Success = true,
+        });
     }
 
     [HttpPut("iniciar")]
     public async Task<IActionResult> IniciarTarefa(IniciarTarefaRequestDTO dto)
     {
-        await _iniciarTarefa.Execute(dto);
-        return Ok();
+        var tarefa = await _iniciarTarefa.Execute(dto);
+        return Ok(new SuccessApiDTO<TarefaResponseDTO>()
+        {
+            Data = tarefa,
+            Success = true,
+        });
     }
 
     [HttpGet("listar")]
     public async Task<IActionResult> ListarTarefas()
     {
         var tarefas = await _listarTarefas.Execute(true);
-        return Ok(tarefas);
+        return Ok(new SuccessApiDTO<List<TarefaResponseDTO>>()
+        {
+            Data = tarefas,
+            Success = true,
+        });
     }
 
     [HttpGet("buscar/{id:int}")]
     public async Task<IActionResult> BuscarPorId(int id)
     {
         var tarefa = await _listarTarefas.ExecuteBuscaId(id, true);
-        return Ok(tarefa);
+        return Ok(new SuccessApiDTO<TarefaResponseDTO>()
+        {
+            Data = tarefa,
+            Success = true,
+        });
     }
 
 
@@ -75,7 +96,11 @@ public class TarefaController : ControllerBase
     public async Task<IActionResult> Atualizar([FromBody] AtualizarRequestDTO dto)
     {
         var tarefa = await _atualizarTarefaUseCase.Execute(dto);
-        return Ok(tarefa);
+        return Ok( new SuccessApiDTO<TarefaResponseDTO>()
+        {
+            Data = tarefa,
+            Success = true,
+        });
     }
 
 
@@ -83,7 +108,11 @@ public class TarefaController : ControllerBase
     public async Task<IActionResult> Reabrir([FromBody] ReabrirRequestDTO dto)
     {
         var tarefa = await _reabrirUseCase.Execute(dto.newPrazo, dto.Id);
-        return Ok(tarefa);
+        return Ok(new SuccessApiDTO<TarefaResponseDTO>()
+        {
+            Data = tarefa,
+            Success = true,
+        });
     }
 
 }
