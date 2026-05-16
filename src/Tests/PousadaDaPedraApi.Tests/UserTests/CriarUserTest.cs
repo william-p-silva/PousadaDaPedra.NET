@@ -14,7 +14,7 @@ public class CriarUserTest
     private readonly Mock<IUnitOfWork> _unitMock = new();
 
     [Fact]
-    public async Task DeveSalvarUsuarioQuandoDadosValidos()
+    public async Task DeveSalvarUsuario_QuandoDadosValidos()
     {
         //Arranges
         var userName = "Teste da Silva";
@@ -56,7 +56,7 @@ public class CriarUserTest
     }
 
     [Fact]
-    public async Task DeveLancarExcecaoQuandoUsuarioExistir()
+    public async Task DeveLancarExcecao_QuandoUsuarioExistir()
     {
         //Arranges
         var userName = "Teste da Silva";

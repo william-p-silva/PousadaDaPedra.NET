@@ -24,10 +24,10 @@ public class FinalizarTarefa
         tarefa.Finalizar();
         await _iUnitOfWork.Commit();
 
-        return new FinalizarResponseDTO
+        return new FinalizarResponseDTO()
         {
-            DataInicio = tarefa?.DataInicio,
-            DataTermino = tarefa?.DataTermino,
+            DataInicio = tarefa.DataInicio,
+            DataTermino = tarefa.DataTermino,
             Descricao = tarefa.Descricao,
             Status = tarefa.Status,
             Id = tarefa.Id,

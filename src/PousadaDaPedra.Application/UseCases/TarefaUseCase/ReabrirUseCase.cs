@@ -18,9 +18,12 @@ public class ReabrirUseCase
 
     public async Task<TarefaResponseDTO> Execute(DateTime? newPrazo, int id)
     {
+        if (newPrazo == null || newPrazo <= DateTime.UtcNow)
+            throw new ArgumentException("O prazo é obrigatorio");
         var tarefa = await _tarefaRepository.BuscarPorId(id, true);
         if (tarefa == null)
             throw new ArgumentException("Tarefa Inexistente");
+        
         
         tarefa.Reabrir(newPrazo);
         await _ofWork.Commit();

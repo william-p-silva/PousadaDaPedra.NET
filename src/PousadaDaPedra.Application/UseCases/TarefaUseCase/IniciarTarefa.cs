@@ -14,14 +14,27 @@ namespace PousadaDaPedra.Application.UseCases.TarefaUseCase
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Execute(IniciarTarefaRequestDTO dto)
+        public async Task<TarefaResponseDTO> Execute(IniciarTarefaRequestDTO dto)
         {
             Tarefa tarefa = await _tarefaRepository.BuscarPorId(dto.Id, true);
             if(tarefa == null)            
-                throw new Exception("Tarefa não encontrada");
+                throw new ArgumentException("Tarefa não encontrada");
 
             tarefa.Iniciar(dto.Prazo);
             await _unitOfWork.Commit();
+            
+            return new TarefaResponseDTO()
+            {
+                Id = tarefa.Id,
+                Prazo = tarefa.Prazo,
+                Titulo = tarefa.Titulo,
+                DataInicio = tarefa.DataInicio,
+                DataTermino = tarefa.DataTermino,
+                Descricao = tarefa.Descricao,
+                Dificuldade = tarefa.Dificuldade,
+                Prioridade = tarefa.Prioridade,
+                Responsaveis = tarefa.Responsaveis.Select(x => x.Id).ToList()
+            };
         }
     }
 }

@@ -102,7 +102,7 @@ public class Tarefa
     {
         if (Status == Status.Finalizada)
             throw new ArgumentException("Você não pode mudar o Prazo de uma tarefa finalizada");
-        if (DataInicio == null || DataInicio >= newPrazo)
+        if (DataInicio >= newPrazo)
             throw new ArgumentException("Você não pode mudar o prazo para uma data anterior ou igual a data de inicio");
         if (newPrazo == null)
             throw new ArgumentException("Prazo invalido");
