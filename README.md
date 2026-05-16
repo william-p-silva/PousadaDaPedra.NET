@@ -189,9 +189,9 @@ public async Task Deve_Criar_Tarefa_Com_Sucesso()
 | Categoria | Tecnologia |
 |-----------|------------|
 | Linguagem | C# |
-| Framework | .NET 8 / ASP.NET Core Web API |
+| Framework | .NET 9 / ASP.NET Core Web API |
 | ORM | Entity Framework Core |
-| Banco de Dados | SQL Server |
+| Banco de Dados | PostgreSQL |
 | Testes | xUnit + Moq |
 | IDEs | Rider / Visual Studio |
 | Versionamento | Git + GitHub |
@@ -201,8 +201,8 @@ public async Task Deve_Criar_Tarefa_Com_Sucesso()
 ## ▶️ Como Executar
 
 ### Pré-requisitos
-- .NET 8 SDK
-- SQL Server
+- .NET 9 SDK
+- PostgreSQL
 
 ### Passo a passo
 
@@ -233,7 +233,6 @@ dotnet test
 
 ## 🎯 Próximos Passos
 
-- [ ] Implementar autenticação JWT
 - [ ] Melhorar validações
 - [ ] Adicionar testes de integração
 - [ ] Criar documentação Swagger completa
