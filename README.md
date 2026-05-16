@@ -2,7 +2,7 @@
 
 > Backend desenvolvido com foco em aprendizado de **Clean Architecture**, **ASP.NET Core**, **Entity Framework Core** e **Testes Unitários** utilizando C#.
 
-![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square&logo=dotnet)
+![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?style=flat-square&logo=dotnet)
 ![C#](https://img.shields.io/badge/C%23-Latest-239120?style=flat-square&logo=csharp)
 ![EF Core](https://img.shields.io/badge/EF_Core-Latest-512BD4?style=flat-square&logo=dotnet)
 ![xUnit](https://img.shields.io/badge/xUnit-Tests-green?style=flat-square)
