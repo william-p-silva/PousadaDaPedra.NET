@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+input.inputPadrao{
+  background: #75838f;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  &:focus{
+    color: #fff;
+    background: #596570;
+    transition: ease-in-out 300ms;
+  }
+
+}
