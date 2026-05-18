@@ -82,6 +82,19 @@ builder.Services.AddAuthorization();
 
 
 
+// --- ADICIONE ESTE BLOCO AQUI ---
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // URL exata do seu Next.js
+            .AllowAnyHeader()                     // Permite Content-Type, Authorization, etc.
+            .AllowAnyMethod()                     // Permite GET, POST, PUT, DELETE
+            .AllowCredentials();                  // Importante! Permite que o fetch envie os Cookies
+    });
+});
+// --------------------------------
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
@@ -93,6 +106,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// --- ADICIONE ESTA LINHA AQUI ---
+app.UseCors("AllowFrontend");
+// --------------------------------
 
 app.UseAuthentication();
 app.UseAuthorization();
