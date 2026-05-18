@@ -2,6 +2,7 @@
 "use client"
 
 import {useCadastro} from "@/features/auth/hooks/useCadastro";
+import {map} from "eslint-config-next";
 
 
 export function FormCadastro(){
@@ -20,8 +21,7 @@ export function FormCadastro(){
             
         <form className={`text-black w-80 flex flex-col`} onSubmit={handleSubmit} >
             
-        
-
+            
             <div className={`p-2 flex flex-col`}>
 
                 <label htmlFor={`NomeUser`}>Nome Completo: </label>

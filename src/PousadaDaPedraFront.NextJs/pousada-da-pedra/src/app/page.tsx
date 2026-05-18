@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     // O useEffect garante que isso só roda DEPOIS que o componente foi renderizado
-    router.push("/auth/cadastro");
+    router.push("/auth/login");
   }, [router]);
 
   return (
