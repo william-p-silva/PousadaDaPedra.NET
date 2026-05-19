@@ -22,6 +22,7 @@ export function FormLogin(){
                         <input
                             name={"email"}
                             value={user.email || ""}
+                            type={"email"}
                             onChange={handleChange}
                             className={`p-2 text-md inputPadrao`}
                             placeholder={`teste@email.com`} id={`EmaiUser`}/>

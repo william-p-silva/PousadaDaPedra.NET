@@ -35,6 +35,7 @@ public class ReabrirUseCase
             Dificuldade = tarefa.Dificuldade,
             Id = tarefa.Id,
             Prazo = tarefa.Prazo,
+            Status = tarefa.Status,
             Prioridade = tarefa.Prioridade,
             DataInicio = tarefa.DataInicio,
             Responsaveis = tarefa.Responsaveis.Select(r => r.Id).ToList(),

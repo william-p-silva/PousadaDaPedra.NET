@@ -2,8 +2,10 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {Cargo, UserFormCadastro} from "@/features/auth/types";
 import {cadastroUser} from "@/features/auth/services/authService";
+import {useRouter} from "next/navigation";
 
 export function useCadastro() {
+    const router = useRouter();
     const [user, setUser] = useState<UserFormCadastro>({
         nome: "",
         email: "",
@@ -48,8 +50,10 @@ export function useCadastro() {
             
             const data = await cadastroUser(user);
             
-            if(data != null)
+            if(data != null) {
                 alert("Cadastro realizado")
+                router.push("/auth/login")
+            }
             
         }catch (err) {
             setError("Erro ao realizar o cadastro. Tente novamente.");

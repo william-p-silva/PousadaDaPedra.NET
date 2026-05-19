@@ -40,6 +40,7 @@ public class AtualizarTarefaUseCase
             Descricao = tarefa.Descricao,
             Dificuldade = tarefa.Dificuldade,
             Prazo = tarefa.Prazo,
+            Status = tarefa.Status,
             Prioridade = tarefa.Prioridade,
             Responsaveis = tarefa.Responsaveis.Select(i => i.Id).ToList(),
             Titulo = tarefa.Titulo,

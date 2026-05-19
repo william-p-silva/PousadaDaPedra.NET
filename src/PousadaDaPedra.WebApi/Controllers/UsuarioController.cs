@@ -12,10 +12,12 @@ public class UsuarioController : ControllerBase
 {
     private readonly CriarUserUseCase _criarUserUseCase;
     private readonly LoginUserUseCase _loginUserUseCase;
-    public UsuarioController(CriarUserUseCase criarUserUseCase, LoginUserUseCase loginUserUseCase)
+    private readonly ListarUserUseCase _listarUserUseCase;
+    public UsuarioController(CriarUserUseCase criarUserUseCase, LoginUserUseCase loginUserUseCase, ListarUserUseCase listarUserUseCase)
     {
         _criarUserUseCase = criarUserUseCase;
         _loginUserUseCase = loginUserUseCase;
+        _listarUserUseCase = listarUserUseCase;
     }
 
     [HttpPost("criar")]
@@ -34,6 +36,18 @@ public class UsuarioController : ControllerBase
     {
         var user = await _loginUserUseCase.Execute(dto);
         return Ok(new SuccessApiDTO<LoginResponseDTO>()
+        {
+            Data = user,
+            Success = true,
+        });
+    }
+
+    [HttpGet("listar/{id:int}")]
+    public async Task<IActionResult> ListarPorIds(int id)
+    {
+        var user = await _listarUserUseCase.Execute(id);
+
+        return Ok(new SuccessApiDTO<UserResponseDTO>()
         {
             Data = user,
             Success = true,

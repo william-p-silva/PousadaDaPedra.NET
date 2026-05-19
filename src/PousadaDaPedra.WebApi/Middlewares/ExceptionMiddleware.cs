@@ -51,7 +51,7 @@ public class ExceptionMiddleware
 
             var dtoErro = new ErrorApiDTO()
             {
-                Message = "Erro interno no servidor",
+                Message = $"Erro interno no servidor {ex.Message}",
                 Status = httpContext.Response.StatusCode,
                 success = false,
             };

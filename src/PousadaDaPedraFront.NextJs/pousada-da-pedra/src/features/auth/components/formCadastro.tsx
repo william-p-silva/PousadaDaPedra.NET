@@ -28,6 +28,7 @@ export function FormCadastro(){
                 <input
                     name={"nome"}
                     value={user.nome || ""}
+                    type={"text"}
                     onChange={HandleChange}
                     className={`px-4 py-2 text-md inputPadrao`}
                     placeholder={`Teste da Silva`} id={`NomeUser`}/>
@@ -39,6 +40,7 @@ export function FormCadastro(){
                 <input
                     name={"email"}
                     value={user.email || ""}
+                    type={"email"}
                     onChange={HandleChange}
                     className={`p-2 text-md inputPadrao`}
                     placeholder={`teste@email.com`} id={`EmaiUser`}/>

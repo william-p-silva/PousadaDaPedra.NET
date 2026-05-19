@@ -31,6 +31,7 @@ namespace PousadaDaPedra.Application.UseCases.TarefaUseCase
                 DataInicio = tarefa.DataInicio,
                 DataTermino = tarefa.DataTermino,
                 Descricao = tarefa.Descricao,
+                Status = tarefa.Status,
                 Dificuldade = tarefa.Dificuldade,
                 Prioridade = tarefa.Prioridade,
                 Responsaveis = tarefa.Responsaveis.Select(x => x.Id).ToList()
