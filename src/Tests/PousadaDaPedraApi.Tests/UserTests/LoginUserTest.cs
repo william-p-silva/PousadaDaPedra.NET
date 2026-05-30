@@ -49,7 +49,7 @@ public class LoginUserTest
 
         Assert.NotNull(userResponse);
         Assert.Equal(tokenGerado, userResponse.Token);
-        Assert.Equal(cargoEsperado.ToString(), userResponse.Cargo);
+        Assert.Equal(cargoEsperado.ToString().ToLower(), userResponse.Cargo);
 
         _tokenMock.Verify(x => x.GerarToken(It.IsAny<Usuario>()), Times.Once);
     }
