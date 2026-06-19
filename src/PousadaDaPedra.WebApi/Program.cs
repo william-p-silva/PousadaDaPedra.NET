@@ -88,7 +88,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000") // URL exata do seu Next.js
+        policy.WithOrigins(
+    "http://localhost:3000",
+    "http://localhost:5173"
+) // URL exata do seu Next.js
             .AllowAnyHeader()                     // Permite Content-Type, Authorization, etc.
             .AllowAnyMethod()                     // Permite GET, POST, PUT, DELETE
             .AllowCredentials();                  // Importante! Permite que o fetch envie os Cookies
