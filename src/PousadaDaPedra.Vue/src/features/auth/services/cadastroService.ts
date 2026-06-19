@@ -1,3 +1,4 @@
+import type { SuccessResponseApi } from "@/shared/types/response";
 import type { CadastroUsuario } from "../types/cadastroUser";
 
 
