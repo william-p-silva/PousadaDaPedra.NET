@@ -77,6 +77,21 @@ builder.Services.AddAuthentication(options =>
                 IssuerSigningKey =
                     new SymmetricSecurityKey(key)
             };
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var token =
+                    context.Request.Cookies["auth_token"];
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    context.Token = token;
+                }
+
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAuthorization();

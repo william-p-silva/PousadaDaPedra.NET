@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PousadaDaPedra.Application.DTOs.ResponseDTO;
 using PousadaDaPedra.Application.DTOs.TarefaDTO;
 using PousadaDaPedra.Application.DTOs.UserDTO;
@@ -35,10 +37,71 @@ public class UsuarioController : ControllerBase
     public async Task<IActionResult> Login(LoginRequestDTO dto)
     {
         var user = await _loginUserUseCase.Execute(dto);
-        return Ok(new SuccessApiDTO<LoginResponseDTO>()
+
+        Response.Cookies.Append(
+            "auth_token",
+            user.Token,
+            new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTimeOffset.UtcNow.AddHours(2)
+            }
+        );
+
+        return Ok(new SuccessApiDTO<Object>
         {
-            Data = user,
             Success = true,
+            Data = new
+            {
+                user.Email,
+                user.Nome,
+                user.Cargo
+            },
+        });
+    }
+
+    [HttpPost("login/next")]
+    public async Task<IActionResult> LoginNext(LoginRequestDTO dto)
+    {
+        var user = await _loginUserUseCase.Execute(dto);
+
+        return Ok(new SuccessApiDTO<LoginResponseDTO>
+        {
+            Success = true,
+            Data = user
+        });
+    }
+
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("auth_token");
+        return Ok(new SuccessApiDTO<string>
+        {
+            Success = true,
+            Data = "Logout realizado com sucesso"
+        });
+    }
+
+    [HttpGet("me")]
+    [Authorize]
+    public IActionResult Me()
+    {
+        var nome = User.FindFirst(ClaimTypes.Name)?.Value;
+        var email = User.FindFirst(ClaimTypes.Email)?.Value;
+        var cargo = User.FindFirst(ClaimTypes.Role)?.Value;
+
+        return Ok(new SuccessApiDTO<object>
+        {
+            Success = true,
+            Data = new
+            {
+                Nome = nome,
+                Email = email,
+                Cargo = cargo
+            }
         });
     }
 

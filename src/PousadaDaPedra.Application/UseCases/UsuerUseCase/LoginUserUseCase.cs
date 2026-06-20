@@ -38,7 +38,7 @@ public class LoginUserUseCase
         return new LoginResponseDTO()
         {
             Email = user.Email,
-            Cargo = user.Cargo.ToString().ToLower(),
+            Cargo = user.Cargo.ToString(),
             Nome = user.Nome,
             Token = token,
         };

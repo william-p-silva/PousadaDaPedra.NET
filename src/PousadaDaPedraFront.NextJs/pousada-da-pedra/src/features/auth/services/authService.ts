@@ -10,7 +10,7 @@ export async function cadastroUser(body: UserFormCadastro) {
 }
 
 export async function loginUser(body: UserFormLogin) : Promise<APIResponse<UserResponse>> {
-    const response = await api.post("/Usuario/login", body, undefined, true) as APIResponse<UserResponse>;
+    const response = await api.post("/Usuario/login/next", body, undefined, true) as APIResponse<UserResponse>;
     
     await fetch("/api/auth", {
         method: "POST",

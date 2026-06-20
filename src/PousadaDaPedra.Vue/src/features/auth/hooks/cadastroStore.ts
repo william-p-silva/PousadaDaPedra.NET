@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { Cargo, type CadastroUsuario } from "../types/cadastroUser";
+import { Cargo, CargoCadastro, type CadastroUsuario, type RequestCadastroUserType } from "../types/usuarioType";
 import { CadastrarUsuario } from "../services/cadastroService";
 import { useRouter } from "vue-router";
+import { CadastroUserSchema } from "../types/cadastroSchemas";
+import { email } from "zod";
 
 export const CadastroUser = defineStore(('cadastorFuncionario'), () => {
     const router = useRouter();
@@ -14,33 +16,26 @@ export const CadastroUser = defineStore(('cadastorFuncionario'), () => {
         nome: '',
         senha: '',
         confirmSenha: '',
-        cargo: Cargo.funcionario,
     });
 
     async function handleSubmit(requestCadastro: CadastroUsuario) {
-        if(
-        requestCadastro.email.trim() === "" || 
-        requestCadastro.nome.trim() === "" ||
-        requestCadastro.senha.trim() === "" ||
-        requestCadastro.confirmSenha.trim() === ""
-        ){
-            error.value = "Campos em branco";
-            return false;
-        }
 
-        if(requestCadastro.senha != requestCadastro.confirmSenha){
-            error.value = "Senhas incompativeis";
-            return false;
-        }
+        const result = CadastroUserSchema.safeParse(requestCadastro)
 
-        if(requestCadastro.senha.length < 8 || requestCadastro.confirmSenha.length < 8){
-            error.value = "senha muito curta";
+        if(!result.success){
+            error.value = result.error.issues[0]!.message
             return false;
         }
 
         try{
             isLoading.value = true;
-            const response = await CadastrarUsuario(requestCadastro);
+            const request: RequestCadastroUserType = {
+                nome: requestCadastro.nome,
+                email: requestCadastro.email,
+                senha: requestCadastro.senha,
+                cargo: CargoCadastro.funcionario,
+            }
+            const response = await CadastrarUsuario(request);
 
             if(!response|| !response.success){
                 error.value = response.message;
@@ -65,7 +60,6 @@ export const CadastroUser = defineStore(('cadastorFuncionario'), () => {
             senha: '',
             confirmSenha: '',
             nome: '',
-            cargo: Cargo.funcionario
         }
     }
 
@@ -77,3 +71,4 @@ export const CadastroUser = defineStore(('cadastorFuncionario'), () => {
         handleSubmit,
     };
 })
+
