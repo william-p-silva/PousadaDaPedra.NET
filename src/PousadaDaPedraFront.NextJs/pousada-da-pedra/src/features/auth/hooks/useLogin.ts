@@ -39,7 +39,8 @@ export function useLogin() {
 
             if(data != null) {
                 alert("Login realizado")
-                router.push(`/${data.data.cargo}`)
+                const rota = data.data.cargo.toLocaleLowerCase()
+                router.push(`/${rota}`)
             }
             
 

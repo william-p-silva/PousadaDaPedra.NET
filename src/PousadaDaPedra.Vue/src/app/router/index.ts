@@ -4,6 +4,7 @@ import CadastroView from '../views/auth/CadastroView.vue'
 import LoginView from '../views/auth/LoginView.vue'
 import { loginUsuarioStore } from '@/features/auth/hooks/useLoginStore.ts'
 import UsuarioView from '@/app/views/usuario/UsuarioView.vue'
+import AppLayout from '../views/layout/AppLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,7 +12,19 @@ const router = createRouter({
     {
       path: "/",
       name: "Home",
-      component: HomePage,
+      component: AppLayout,
+      children: [
+        {
+          path: "/",
+          name: "Inicio",
+          component: HomePage,
+        },
+        {
+          path: "/usuario",
+          name: "usuario",
+          component: UsuarioView,
+        },
+      ],
     },
     {
       path: "/cadastro",
@@ -22,11 +35,6 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
-    },
-    {
-      path: "/usuario",
-      name: "usuario",
-      component: UsuarioView,
     },
   ],
 })

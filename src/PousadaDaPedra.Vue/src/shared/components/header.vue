@@ -1,0 +1,20 @@
+<script setup lang="ts">
+import { loginUsuarioStore } from '@/features/auth/hooks/useLoginStore';
+
+const auth = loginUsuarioStore();
+const user = auth.verificarAuth();
+
+</script>
+
+<template>
+    <header class="flex justify-between py-2 px-6 bg-blue-300">
+        <div class="flex flex-col justify-center items-center">
+            <div class="bg-zinc-500 rounded-full w-22 h-22 "></div>
+            <RouterLink to="usuario" class="btn">{{ auth.usuarioLogado?.nome ?? "Usuario" }}</RouterLink>
+        </div>
+        <nav class="flex gap-2 items-end">
+            <RouterLink to="login" class="btn btn-secundary">Login</RouterLink>
+            <RouterLink to="cadastro" class="btn btn-primary" >Cadastre-se</RouterLink>
+        </nav>
+    </header>
+</template>
