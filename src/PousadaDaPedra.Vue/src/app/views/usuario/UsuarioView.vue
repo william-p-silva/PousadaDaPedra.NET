@@ -1,28 +1,21 @@
 <script setup lang="ts">
 import { loginUsuarioStore } from '@/features/auth/hooks/useLoginStore'
+import Tarefa from '@/features/tarefas/components/tarefa.vue'
+import { useTarefaStore } from '@/features/tarefas/hooks/useTarefaStore'
 import { onMounted } from 'vue'
 
 const auth = loginUsuarioStore()
-
-console.log("COMPONENTE CARREGOU")
+const tarefaStore = useTarefaStore();
 
 onMounted(async () => {
-    console.log("ONMOUNTED INICIO")
-
     await auth.verificarAuth()
-
-    console.log("ONMOUNTED FIM")
-    console.log(auth.usuarioLogado)
+    await tarefaStore.listarTarefas();
 })
 </script>
 
 
 <template>
-    <h1 v-if="auth.usuarioLogado">
-        Olá usuario {{ auth.usuarioLogado.nome }}
-    </h1>
-
-    <h1 v-else>
-        Carregando...
-    </h1>
+    <section class="flex flex-wrap justify-center items-center gap-4 m-auto w-full p-4 ">
+        <Tarefa v-for="tarefa in tarefaStore.tarefas" :tarefa="tarefa" :key="tarefa.id"/>
+    </section>
 </template>

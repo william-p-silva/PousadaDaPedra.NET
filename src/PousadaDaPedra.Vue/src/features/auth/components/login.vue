@@ -38,7 +38,7 @@ async function submit() {
                     v-model="login.usuarioLogin.senha">
             </div>
             <div>
-                <input type="submit" value="Cadastrar"
+                <input type="submit" value="Entrar"
                     class="w-full p-2 text-white cursor-pointer rounded-lg bg-zinc-700 hover:bg-zinc-800">
             </div>
         </form>

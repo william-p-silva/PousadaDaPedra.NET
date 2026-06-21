@@ -20,14 +20,14 @@ public class AtualizarTarefaUseCase
         Tarefa? tarefa = await _tarefaRepository.BuscarPorId(dto.Id, true);
         if (tarefa == null)
             throw new ArgumentException("Tarefa inexistente");
-        
-        if(!String.IsNullOrWhiteSpace(dto.Descricao))
-           tarefa.AlterarDescricao(dto.Descricao);
-        if(dto.Prioridade != null)
+
+        if (!String.IsNullOrWhiteSpace(dto.Descricao))
+            tarefa.AlterarDescricao(dto.Descricao);
+        if (dto.Prioridade != null)
             tarefa.AlterarPrioridade(dto.Prioridade.Value);
-        if(dto.Dificuldade != null)
+        if (dto.Dificuldade != null)
             tarefa.AlterarDificuldade(dto.Dificuldade.Value);
-        if(dto.Prazo != null)
+        if (dto.Prazo != null)
             tarefa.AlterarPrazo(dto.Prazo.Value);
 
         await _ofWork.Commit();
@@ -42,7 +42,12 @@ public class AtualizarTarefaUseCase
             Prazo = tarefa.Prazo,
             Status = tarefa.Status,
             Prioridade = tarefa.Prioridade,
-            Responsaveis = tarefa.Responsaveis.Select(i => i.Id).ToList(),
+            Responsaveis = tarefa.Responsaveis.Select(r => new TarefaResponsavelResponseDTO
+            {
+                Nome = r.Nome,
+                Email = r.Email,
+                Id = r.Id
+            }).ToList(),
             Titulo = tarefa.Titulo,
         };
     }

@@ -38,7 +38,12 @@ public class ReabrirUseCase
             Status = tarefa.Status,
             Prioridade = tarefa.Prioridade,
             DataInicio = tarefa.DataInicio,
-            Responsaveis = tarefa.Responsaveis.Select(r => r.Id).ToList(),
+            Responsaveis = tarefa.Responsaveis.Select( r => new TarefaResponsavelResponseDTO
+                {
+                    Nome = r.Nome,
+                    Email = r.Email,
+                    Id = r.Id
+                }).ToList(),
             Titulo = tarefa.Titulo,
         };
     }

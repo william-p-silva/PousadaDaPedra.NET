@@ -10,7 +10,7 @@ public class TarefaResponseDTO
     public Prioridade Prioridade { get; set; }
     public Status Status { get; set; }
     public Dificuldade Dificuldade { get; set; }
-    public List<int>? Responsaveis { get; set; }
+    public List<TarefaResponsavelResponseDTO>? Responsaveis { get; set; }
     public DateTime? DataInicio { get; set; }
     public DateTime? DataTermino { get; set; }
     public DateTime? Prazo { get; set; }

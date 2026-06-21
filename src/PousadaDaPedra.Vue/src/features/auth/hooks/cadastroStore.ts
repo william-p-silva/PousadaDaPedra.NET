@@ -4,9 +4,8 @@ import { Cargo, CargoCadastro, type CadastroUsuario, type RequestCadastroUserTyp
 import { CadastrarUsuario } from "../services/cadastroService";
 import { useRouter } from "vue-router";
 import { CadastroUserSchema } from "../types/cadastroSchemas";
-import { email } from "zod";
 
-export const CadastroUser = defineStore(('cadastorFuncionario'), () => {
+export const CadastroUser = defineStore(('cadastroFuncionario'), () => {
     const router = useRouter();
     const error = ref('');
     const isLoading = ref(false);

@@ -10,7 +10,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="min-h-screen">
+  <main class="min-h-screen bg-zinc-100">
     <RouterView />
   </main>
 </template>

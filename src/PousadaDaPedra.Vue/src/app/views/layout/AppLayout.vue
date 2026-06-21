@@ -12,7 +12,8 @@ onMounted(async () => {
 
 <template>
     <Header />
-    <RouterView />
+    <section class="p-2 rounded-3xl">
+      <RouterView />
+    </section>
 </template>
 
-<style scoped></style>

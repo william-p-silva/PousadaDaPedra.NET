@@ -21,7 +21,12 @@ namespace PousadaDaPedra.Application.UseCases.TarefaUseCase
                 Descricao = t.Descricao,
                 Prioridade = t.Prioridade,
                 Status = t.Status,
-                Responsaveis = t.Responsaveis?.Select(r => r.Id).ToList(),
+                Responsaveis = t.Responsaveis.Select( r => new TarefaResponsavelResponseDTO
+                {
+                    Nome = r.Nome,
+                    Email = r.Email,
+                    Id = r.Id
+                }).ToList(),
                 Dificuldade = t.Dificuldade,
                 DataInicio = t.DataInicio,
                 DataTermino = t.DataTermino,
@@ -40,7 +45,12 @@ namespace PousadaDaPedra.Application.UseCases.TarefaUseCase
                 Titulo = tarefa.Titulo,
                 Descricao = tarefa.Descricao,
                 Prioridade = tarefa.Prioridade,
-                Responsaveis = tarefa.Responsaveis?.Select(r => r.Id).ToList(),
+                Responsaveis = tarefa.Responsaveis.Select( r => new TarefaResponsavelResponseDTO
+                {
+                    Nome = r.Nome,
+                    Email = r.Email,
+                    Id = r.Id
+                }).ToList(),
                 Status = tarefa.Status,
                 Dificuldade = tarefa.Dificuldade,
                 DataInicio = tarefa.DataInicio,
