@@ -15,11 +15,13 @@ public class UsuarioController : ControllerBase
     private readonly CriarUserUseCase _criarUserUseCase;
     private readonly LoginUserUseCase _loginUserUseCase;
     private readonly ListarUserUseCase _listarUserUseCase;
-    public UsuarioController(CriarUserUseCase criarUserUseCase, LoginUserUseCase loginUserUseCase, ListarUserUseCase listarUserUseCase)
+    private readonly ListarAllUsuariosUseCase _listarAllUsuariosUseCase;
+    public UsuarioController(CriarUserUseCase criarUserUseCase, LoginUserUseCase loginUserUseCase, ListarUserUseCase listarUserUseCase, ListarAllUsuariosUseCase listarAllUsuariosUseCase)
     {
         _criarUserUseCase = criarUserUseCase;
         _loginUserUseCase = loginUserUseCase;
         _listarUserUseCase = listarUserUseCase;
+        _listarAllUsuariosUseCase = listarAllUsuariosUseCase;
     }
 
     [HttpPost("criar")]
@@ -104,6 +106,20 @@ public class UsuarioController : ControllerBase
             }
         });
     }
+
+
+    [HttpGet("listar")]
+    public async Task<IActionResult> ListarUsuarios([FromQuery] bool gerente = false)
+    {
+        var usuarios = await _listarAllUsuariosUseCase.Execute(gerente);
+
+        return Ok(new SuccessApiDTO<List<UserResponseDTO>>()
+        {
+            Data = usuarios,
+            Success = true,
+        });
+    }
+
 
     [HttpGet("listar/{id:int}")]
     public async Task<IActionResult> ListarPorIds(int id)

@@ -20,7 +20,7 @@ const props = defineProps<{
     <div v-if="tarefaStore.isLoading || tarefaStore.tarefas === null" class="h-full flex justify-center items-center">
         <Loading text="Buscando Tarefas" />
     </div>
-    <main v-else class="p-4 bg-white flex flex-col justify-between w-66 min-h-[450px] text-sm rounded-lg shadow-md shadow-black/40 text-zinc-700">
+    <main v-else class="p-4 bg-white flex flex-col justify-between w-66 min-h-112.5 text-sm rounded-lg shadow-md shadow-black/40 text-zinc-700">
         <header class="flex justify-between mb-4 items-center">
             <h1 class="font-bold text-xl text-gray-800">{{ tarefa.titulo ?? "Titulo" }}</h1>
             <span :class="[tarefaStyle.getStyleDificuldade(tarefa.dificuldade), 'px-2 py-1 rounded-md font-semibold']">{{ formatarDificuldade(tarefa.dificuldade) }}</span>
@@ -49,14 +49,20 @@ const props = defineProps<{
                 <BotaoAcao :status="tarefa.status" :id="tarefa.id" />
             </article>
         </section>
-        <footer class="flex justify-between border-t border-zinc-200 pt-4">
-            <div>
-                <p class="tracking-wider text-slate-500 text-[12px] uppercase">Início:</p>
-                <p class="text-zinc-800 ">{{ formatarData(tarefa.dataInicio) }}</p>
+        <footer class="flex flex-col justify-between border-t border-zinc-200 pt-4">
+            <div class="flex justify-between">
+                <div class="flex flex-col">
+                    <p class="tracking-wider text-slate-500 text-[12px] uppercase">Início:</p>
+                    <p class="text-zinc-800 ">{{ formatarData(tarefa.dataInicio) }}</p>
+                </div>
+                <div>
+                    <p class="tracking-wider text-slate-500 text-[12px] uppercase text-right">Prazo:</p>
+                    <p class="text-red-600 ">{{ formatarData(tarefa.prazo) }}</p>
+                </div>
             </div>
-            <div>
-                <p class="tracking-wider text-slate-500 text-[12px] uppercase text-right">Prazo:</p>
-                <p class="text-red-600 ">{{ formatarData(tarefa.dataTermino) }}</p>
+            <div class="w-full flex flex-col justify-center text-center pt-2">
+                    <p class="tracking-wider text-slate-500 text-[12px] uppercase">Termino:</p>
+                    <p class="text-red-600 ">{{ formatarData(tarefa.dataTermino) }}</p>
             </div>
         </footer>
     </main>

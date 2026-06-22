@@ -9,6 +9,6 @@ public interface IUsuarioRepository
     Task<Usuario> BuscarPorId(int id);
     Task<Usuario> BuscarPorEmail(string email);
     void Remover(Usuario user);
-    Task<List<Usuario>> ListarUsuarios();
+    Task<List<Usuario>> ListarUsuarios(bool gerente = false);
     Task Salvar(Usuario usuario);
 }

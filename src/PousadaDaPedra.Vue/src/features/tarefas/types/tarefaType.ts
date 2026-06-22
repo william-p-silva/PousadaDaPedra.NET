@@ -1,3 +1,14 @@
+import type z from "zod";
+import type { criarTarefaSchema } from "./tarefaSchema";
+
+export type CriarTarefaType = z.infer<typeof criarTarefaSchema>;
+
+export interface UsuarioResponseTarefa {
+    id: number,
+    nome: string,
+    email: string,
+    cargo: string,
+}
 
 export interface TarefaResponse {
     id: number,

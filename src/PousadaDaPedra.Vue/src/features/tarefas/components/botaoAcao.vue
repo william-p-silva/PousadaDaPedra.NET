@@ -13,6 +13,7 @@ const prazo = ref('');
 function executarAcao() {
     const dataPrazo = new Date(prazo.value);
     botao.action(props.id, dataPrazo);
+
 }
 </script>
 

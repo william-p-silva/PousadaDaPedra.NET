@@ -40,9 +40,17 @@ public class UsuarioRepository : IUsuarioRepository
         _context.Usuarios.Remove(user);
     }
 
-    public async Task<List<Usuario>> ListarUsuarios()
+    public async Task<List<Usuario>> ListarUsuarios(bool gerente = false)
     {
-        return await _context.Usuarios.AsNoTracking().ToListAsync();
+        if (gerente)
+        {
+            return await _context.Usuarios.Where(x => x.Cargo == Cargo.Gerente)
+                    .AsNoTracking().ToListAsync();
+        }
+        else
+        {
+            return await _context.Usuarios.AsNoTracking().ToListAsync();
+        }
     }
 
     public async Task Salvar(Usuario usuario)
