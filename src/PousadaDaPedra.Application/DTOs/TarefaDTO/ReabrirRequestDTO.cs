@@ -3,5 +3,5 @@
 public class ReabrirRequestDTO
 {
     public int  Id { get; set; }
-    public DateTime? newPrazo { get; set; }
+    public DateTime? Prazo { get; set; }
 }

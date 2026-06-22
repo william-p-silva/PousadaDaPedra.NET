@@ -4,6 +4,7 @@ import { useTarefaStore } from '../hooks/useTarefaStore';
 import type { TarefaResponse } from '../types/tarefaType';
 import { formatarData, formatarDificuldade, formatarPrioridade, formatarStatus } from '@/shared/hooks/formatar';
 import { tarefaStyleHook } from '../hooks/useTarefaStyleStore';
+import BotaoAcao from './botaoAcao.vue';
 
 
 const tarefaStore = useTarefaStore();
@@ -19,10 +20,10 @@ const props = defineProps<{
     <div v-if="tarefaStore.isLoading || tarefaStore.tarefas === null" class="h-full flex justify-center items-center">
         <Loading text="Buscando Tarefas" />
     </div>
-    <main v-else class="p-4 bg-white flex flex-col justify-center w-66 text-sm rounded-lg shadow-md shadow-black/40 text-zinc-700">
+    <main v-else class="p-4 bg-white flex flex-col justify-between w-66 min-h-[450px] text-sm rounded-lg shadow-md shadow-black/40 text-zinc-700">
         <header class="flex justify-between mb-4 items-center">
             <h1 class="font-bold text-xl text-gray-800">{{ tarefa.titulo ?? "Titulo" }}</h1>
-            <span :class="[tarefaStyle.getStyleDificuldade(tarefa.dificuldade), 'px-2 py-1 rounded-md']">{{ formatarDificuldade(tarefa.dificuldade) }}</span>
+            <span :class="[tarefaStyle.getStyleDificuldade(tarefa.dificuldade), 'px-2 py-1 rounded-md font-semibold']">{{ formatarDificuldade(tarefa.dificuldade) }}</span>
         </header>
         <section class="flex flex-col gap-4">
             <article class="bg-zinc-100/90 p-2 rounded-md font-normal text-sm line-clamp-3 text-zinc-500">
@@ -44,10 +45,8 @@ const props = defineProps<{
                     <p v-for="responsavel of tarefa.responsaveis">{{ responsavel.email }}</p>
                 </div>
             </article>
-            <article class="flex justify-center items-center p-2">
-                <button class="btn btn-primary w-full">
-                    Botão
-                </button>
+            <article class="flex flex-col justify-center items-center p-2 gap-4">
+                <BotaoAcao :status="tarefa.status" :id="tarefa.id" />
             </article>
         </section>
         <footer class="flex justify-between border-t border-zinc-200 pt-4">

@@ -17,7 +17,7 @@ async function submit() {
 
 <template>
     <div v-if="login.isLoading" class="h-screen flex justify-center items-center">
-        <Loading text="Cadastrando Usuário" />
+        <Loading text="Buscando Usuário" />
     </div>
     <div v-else class="flex flex-col gap-6 justify-center items-center h-screen">
         <form class="flex flex-col gap-2 text-zinc-700" @submit.prevent="submit">

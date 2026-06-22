@@ -19,11 +19,11 @@ public class TarefaController : ControllerBase
     private readonly ReabrirUseCase _reabrirUseCase;
     public TarefaController(
         CriarTarefa criarTarefa
-        ,FinalizarTarefa finalizarTarefa
-        ,IniciarTarefa iniciarTarefa
-        ,ListarTarefasUseCase listarTarefasUseCase
-        ,AtualizarTarefaUseCase atualizarTarefaUseCase
-        ,ReabrirUseCase reabrirUseCase
+        , FinalizarTarefa finalizarTarefa
+        , IniciarTarefa iniciarTarefa
+        , ListarTarefasUseCase listarTarefasUseCase
+        , AtualizarTarefaUseCase atualizarTarefaUseCase
+        , ReabrirUseCase reabrirUseCase
         )
     {
         _criarTarefa = criarTarefa;
@@ -33,8 +33,8 @@ public class TarefaController : ControllerBase
         _atualizarTarefaUseCase = atualizarTarefaUseCase;
         _reabrirUseCase = reabrirUseCase;
     }
-    
-    
+
+
     [HttpPost("criar")]
     public async Task<IActionResult> CriarTarefa([FromBody] CriarRequestDTO dto)
     {
@@ -45,8 +45,8 @@ public class TarefaController : ControllerBase
             Success = true,
         });
     }
-    
-        //var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value);
+
+    //var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value);
     [HttpPut("finalizar")]
     public async Task<IActionResult> FinalizarTarefa([FromBody] FinalizarRequestDTO dto)
     {
@@ -96,7 +96,7 @@ public class TarefaController : ControllerBase
     public async Task<IActionResult> Atualizar([FromBody] AtualizarRequestDTO dto)
     {
         var tarefa = await _atualizarTarefaUseCase.Execute(dto);
-        return Ok( new SuccessApiDTO<TarefaResponseDTO>()
+        return Ok(new SuccessApiDTO<TarefaResponseDTO>()
         {
             Data = tarefa,
             Success = true,
@@ -107,7 +107,7 @@ public class TarefaController : ControllerBase
     [HttpPut("reabrir")]
     public async Task<IActionResult> Reabrir([FromBody] ReabrirRequestDTO dto)
     {
-        var tarefa = await _reabrirUseCase.Execute(dto.newPrazo, dto.Id);
+        var tarefa = await _reabrirUseCase.Execute(dto.Prazo, dto.Id);
         return Ok(new SuccessApiDTO<TarefaResponseDTO>()
         {
             Data = tarefa,
