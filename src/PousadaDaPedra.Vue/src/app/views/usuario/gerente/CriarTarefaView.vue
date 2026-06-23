@@ -6,6 +6,5 @@ import CriarForm from '@/features/tarefas/components/criar/criarForm.vue';
 
 
 <template>
-    <h1>Cadastro de Tarefas</h1>
     <CriarForm />
 </template>

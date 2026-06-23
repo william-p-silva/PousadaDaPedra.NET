@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Loading from '@/shared/components/loading.vue';
 import { useTarefaStore } from '../hooks/useTarefaStore';
-import type { TarefaResponse } from '../types/tarefaType';
+import { Status, type TarefaResponse } from '../types/tarefaType';
 import { formatarData, formatarDificuldade, formatarPrioridade, formatarStatus } from '@/shared/hooks/formatar';
 import { tarefaStyleHook } from '../hooks/useTarefaStyleStore';
 import BotaoAcao from './botaoAcao.vue';
@@ -55,14 +55,14 @@ const props = defineProps<{
                     <p class="tracking-wider text-slate-500 text-[12px] uppercase">Início:</p>
                     <p class="text-zinc-800 ">{{ formatarData(tarefa.dataInicio) }}</p>
                 </div>
-                <div>
+                <div v-if="tarefa.status !== Status.Finalizada">
                     <p class="tracking-wider text-slate-500 text-[12px] uppercase text-right">Prazo:</p>
                     <p class="text-red-600 ">{{ formatarData(tarefa.prazo) }}</p>
                 </div>
-            </div>
-            <div class="w-full flex flex-col justify-center text-center pt-2">
-                    <p class="tracking-wider text-slate-500 text-[12px] uppercase">Termino:</p>
-                    <p class="text-red-600 ">{{ formatarData(tarefa.dataTermino) }}</p>
+                <div v-else >
+                        <p class="tracking-wider text-slate-500 text-[12px] uppercase text-right">Termino:</p>
+                        <p class="text-red-600 ">{{ formatarData(tarefa.dataTermino) }}</p>
+                </div>
             </div>
         </footer>
     </main>
