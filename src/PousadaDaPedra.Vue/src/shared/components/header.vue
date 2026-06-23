@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { loginUsuarioStore } from '@/features/auth/hooks/useLoginStore';
+import PageNav from './pageNav.vue';
+import { Cargo } from '@/features/auth/types/usuarioType';
 
 const auth = loginUsuarioStore();
 const user = auth.verificarAuth();
@@ -12,10 +14,12 @@ const user = auth.verificarAuth();
             <div class="bg-zinc-500 rounded-full w-22 h-22 "></div>
             <RouterLink to="/usuario" class="btn">{{ auth.usuarioLogado?.email ?? "Usuario" }}</RouterLink>
         </div>
-        <nav class="flex gap-2 items-end">
-            <RouterLink to="/login" class="btn btn-secundary">Login</RouterLink>
-            <RouterLink to="/cadastro" class="btn btn-primary" >Cadastre-se</RouterLink>
-            <RouterLink to="/criar/tarefa" class="btn btn-secundary" >Cadastrar Tarefa</RouterLink>
+        <nav class="flex gap-2 items-end px-2 py-1">
+            <PageNav v-if="auth.isAuthenticated " />
+            <div v-else class="flex gap-2 items-end">
+                <RouterLink to="/login" class="btn btn-secundary">Login</RouterLink>
+                <RouterLink to="/cadastro" class="btn btn-primary" >Cadastre-se</RouterLink>
+            </div>
 
         </nav>
     </header>

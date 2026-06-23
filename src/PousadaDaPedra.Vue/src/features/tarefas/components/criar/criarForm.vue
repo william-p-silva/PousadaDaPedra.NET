@@ -54,6 +54,9 @@ const opcoesUsuarios = computed(() =>
                 <textarea placeholder="Descrição da tarefa" class="w-full p-1 rounded-lg border border-zinc-700"
                     v-model="cadastro.tarefa.descricao"></textarea>
             </div>
+            <!-- <div>
+                <p class="whitespace-pre-line wrap-break-wordords">{{ cadastro.tarefa.descricao }}</p>
+            </div> -->
 
             <div class="">
                 <span>Prioridade:</span>
@@ -79,3 +82,4 @@ const opcoesUsuarios = computed(() =>
         </div>
     </form>
 </template>
+
