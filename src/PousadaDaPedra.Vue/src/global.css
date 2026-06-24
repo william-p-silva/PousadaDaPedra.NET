@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+    --color-pumpink: #FE7F2D;
+    --color-crimson: #D7263D;
+    --color-charcoal: #2B323F;
+    --color-whiteSmoke: #F7F4F3;
+    --color-grayBlue: #2B323F;
+    --color-charcoal: #2B323F;
+    --color-nights: #02182B;
+}
+
+
 @layer components {
     .btn{
         @apply p-2 rounded-md font-bold text-zinc-600;

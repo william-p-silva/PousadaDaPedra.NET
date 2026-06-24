@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
- <div class="flex items-center gap-2 text-sm">
+ <div class="flex justify-center items-center gap-2 text-sm">
         <RouterLink
             to="/"
             class="font-medium text-zinc-500 hover:text-zinc-700 transition-colors duration-200"

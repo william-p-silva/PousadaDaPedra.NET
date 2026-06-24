@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Login from '@/features/auth/components/login.vue';
-import Navegar from '@/features/auth/components/navegar.vue';
 
 </script>
 
@@ -8,5 +7,8 @@ import Navegar from '@/features/auth/components/navegar.vue';
 
 
 <template>
-        <Login />
+        <section class="flex ">
+                <article class="md:w-full h-screen bg-nights" />
+                <Login />
+        </section>
 </template>
