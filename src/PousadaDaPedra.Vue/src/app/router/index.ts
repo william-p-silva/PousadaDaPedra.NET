@@ -6,6 +6,7 @@ import { loginUsuarioStore } from '@/features/auth/hooks/useLoginStore.ts'
 import UsuarioView from '@/app/views/usuario/UsuarioView.vue'
 import AppLayout from '../views/layout/AppLayout.vue'
 import CriarTarefaView from '../views/usuario/gerente/CriarTarefaView.vue'
+import AuthView from '../views/auth/AuthView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,13 +43,18 @@ const router = createRouter({
       name: "login",
       component: LoginView,
     },
+    {
+      path: "/auth",
+      name: "auth",
+      component: AuthView,
+    },
   ],
 })
 
 router.beforeEach(async (to) => {
   const authStore = loginUsuarioStore()
 
-  const publicRoutes = ['/login', '/cadastro', '/']
+  const publicRoutes = ['/login', '/cadastro', '/', '/auth', '/usuario']
   if (publicRoutes.includes(to.path)) return true
 
   await authStore.verificarAuth();

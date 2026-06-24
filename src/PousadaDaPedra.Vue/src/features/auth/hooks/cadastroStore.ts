@@ -59,7 +59,8 @@ export const CadastroUser = defineStore(('cadastroFuncionario'), () => {
             senha: '',
             confirmSenha: '',
             nome: '',
-        }
+        };
+        error.value = '';
     }
 
     return {
@@ -68,6 +69,7 @@ export const CadastroUser = defineStore(('cadastroFuncionario'), () => {
         error,
         cadastroUsuarioRequest,
         handleSubmit,
+        limparForm,
     };
 })
 

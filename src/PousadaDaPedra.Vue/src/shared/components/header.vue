@@ -17,7 +17,7 @@ const user = auth.verificarAuth();
         <nav class="flex gap-2 items-end px-2 py-1">
             <PageNav v-if="auth.isAuthenticated " />
             <div v-else class="flex gap-2 items-end">
-                <RouterLink to="/login" class="btn btn-secundary">Login</RouterLink>
+                <RouterLink to="/login" class="btn btn-secundary text-lg">Login</RouterLink>
                 <RouterLink to="/cadastro" class="btn btn-primary" >Cadastre-se</RouterLink>
             </div>
 

@@ -76,7 +76,8 @@ export const loginUsuarioStore = defineStore(('login'), () => {
         usuarioLogin.value = {
             email: "",
             senha: "",
-        }
+        };
+        error.value = '';
     }
 
     return {
@@ -88,5 +89,6 @@ export const loginUsuarioStore = defineStore(('login'), () => {
         usuarioLogado,
         handleSubmit,
         verificarAuth,
+        limparForm,
     }
 })

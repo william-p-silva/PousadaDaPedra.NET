@@ -12,14 +12,30 @@
 
 
 @layer components {
-    .btn{
-        @apply p-2 rounded-md font-bold text-zinc-600;
-        @apply transition ease-in-out duration-300 cursor-pointer;
+    .btn {
+        @apply flex gap-2 justify-center items-center w-full ;
+        @apply p-3 rounded-xl text-whiteSmoke font-bold;
+        @apply transition-all duration-150;
     };
+
     .btn-primary {
-        @apply bg-zinc-500 hover:bg-zinc-800 text-white;
+        @apply  hover:shadow-lg active:scale-95 active:shadow-sm;
+        @apply disabled:bg-pumpink/60 bg-pumpink 
     };
+
     .btn-secundary {
         @apply hover:bg-zinc-500/60 hover:text-white px-4;
     };
+
+
+    .inpt {
+        @apply w-full flex gap-2 items-center p-2.5 rounded-xl;
+        @apply ring ring-grayBlue/20 font-normal bg-whiteSmoke;
+        @apply transition-all duration-200;
+    };
+
+    .inpt-primary {
+        @apply focus-within:ring-pumpink focus-within:bg-pumpink/5 focus-within:shadow-lg focus-within:scale-[1.01];
+    };
+
 };

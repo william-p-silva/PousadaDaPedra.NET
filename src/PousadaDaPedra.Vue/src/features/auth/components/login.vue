@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Loading from '@/shared/components/loading.vue';
 import { loginUsuarioStore } from '../hooks/useLoginStore';
-import Navegar from './navegar.vue';
-import LoadingBotton from '@/shared/components/loadingBotton.vue';
 import { Eye, EyeOff, Lock, Mail } from '@lucide/vue';
 import { ref } from 'vue';
+import Submit from '@/shared/components/botoes/submit.vue';
+import { useAuthStore } from '../hooks/authStore';
 
 const login = loginUsuarioStore();
+const authStore = useAuthStore();
 
 async function submit() {
     const sucesso = await login.handleSubmit(login.usuarioLogin);
@@ -15,13 +15,18 @@ async function submit() {
     }
 }
 const mostrarSenha = ref(false)
+
+
+defineProps<{
+    rota: boolean
+}>();
 </script>
 
 
 
 <template>
 
-    <div class="flex flex-col gap-6 justify-center items-center bg-whiteSmoke w-full md:w-[105vw]">
+    <div class="flex flex-col gap-6 justify-center items-center bg-whiteSmoke w-full h-full">
         <form class="flex flex-col gap-4 w-[60%] h-full justify-center lg:p-4 " @submit.prevent="submit">
 
             <div class="flex flex-col mb-6 gap-1">
@@ -30,16 +35,13 @@ const mostrarSenha = ref(false)
             </div>
 
             <div class="flex flex-col gap-6">
+
                 <div class="flex flex-col gap-2">
+
                     <p class="text-nights font-medium text-[13px] ">E-mail </p>
-                    <div class="bg-white items-center
-                        flex gap-2 w-full p-2.5 rounded-xl font-normal
-                        ring ring-grayBlue/20
-                        transition-all duration-200
-                        focus-within:ring-pumpink
-                        focus-within:bg-pumpink/5
-                        focus-within:shadow-lg
-                        focus-within:scale-[1.01]">
+
+                    <div class="inpt inpt-primary">
+
                         <p class="text-center">
                             <Mail class="text-grayBlue/40 size-5" />
                         </p>
@@ -50,13 +52,7 @@ const mostrarSenha = ref(false)
                 <div class="flex flex-col gap-2">
                     <p class="text-nights font-medium text-[13px]">Senha</p>
 
-                    <div class="bg-white flex gap-2 w-full p-2.5 rounded-xl font-normal
-        ring ring-grayBlue/20
-        transition-all duration-200
-        focus-within:ring-pumpink
-        focus-within:bg-pumpink/5
-        focus-within:shadow-lg
-        focus-within:scale-[1.01]">
+                    <div class="inpt inpt-primary">
                         <Lock class="text-grayBlue/40 size-5" />
 
                         <input :type="mostrarSenha ? 'text' : 'password'" placeholder="***********"
@@ -94,22 +90,23 @@ const mostrarSenha = ref(false)
             </div>
 
 
-            <div class="  
-                w-full flex justify-center items-center gap-3 bg-pumpink p-3 rounded-xl text-whiteSmoke font-bold disabled:bg-pumpink/60
-                    transition-all duration-150
-                    hover:shadow-lg
-                    active:scale-95
-                    active:shadow-sm">
-                <div v-if="login.isLoading" class="flex gap-2 items-center justify-center">
-                    <LoadingBotton class="h-6" />
-                </div>
-                <button v-else type="submit" class="w-full h-6">
-                    -> Entrar
-                </button>
+            <div class="w-full flex justify-center ">
+                <Submit :isLoading="login.isLoading" />
             </div>
-            <div class="w-full flex justify-center">
-                <p class="text-grayBlue/60 font-medium">Não tem uma conta? <RouterLink to="/cadastro"
-                        class="text-pumpink font-medium">Solicitar acesso</RouterLink>
+            <div v-if="rota" class="w-full flex justify-center">
+                <p class="text-grayBlue/60 font-medium">
+                    Não tem uma conta?
+                    <RouterLink to="/cadastro" class="text-pumpink font-medium">
+                        Solicitar acesso
+                    </RouterLink>
+                </p>
+            </div>
+            <div v-else="rota" class="w-full flex justify-center">
+                <p class="text-grayBlue/60 font-medium">
+                    Não tem uma conta?
+                    <span @click="login.limparForm(), authStore.isCadastro = !authStore.isCadastro" class="text-pumpink font-medium cursor-pointer">
+                        Solicitar acesso
+                    </span>
                 </p>
             </div>
             <div v-if="login.error" class="flex justify-center  text-crimson">
