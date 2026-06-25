@@ -33,14 +33,33 @@ const sliderY = computed(() =>
 </script>
 
 <template>
+     <!-- Overlay escuro no mobile quando sidebar aberta -->
+     <Transition name="fade">
+        <div
+            v-if="useHeader.isMobileOpen"
+            class="fixed inset-0 bg-black/50 z-40 md:hidden"
+            @click="useHeader.isMobileOpen = false"
+        />
+    </Transition>
+
     <header :class="[
-        'bg-nights h-screen z-50 shrink-0 fixed left-0 top-0 transition-all duration-300 ease-in-out overflow-hidden flex flex-col ',
-        useHeader.hiddenSide ? 'w-20 px-2 py-6' : 'w-72 p-6'
+        'bg-nights h-screen z-50 shrink-0 top-0 left-0 transition-all duration-300 ease-in-out overflow-hidden flex flex-col',
+        // Mobile: sempre fixed, fora da tela por padrão, entra como overlay
+        'fixed',
+        // Mobile: abre/fecha com translate; Desktop: usa largura normal
+        useHeader.isMobileOpen ? 'translate-x-0' : '-translate-x-full',
+        'md:translate-x-0', // Desktop: nunca some por translate
+        // Desktop: alterna largura; Mobile: sempre largura expandida quando aberta
+        useHeader.hiddenSide ? 'md:w-20 md:px-2 md:py-6' : 'md:w-72 md:p-6',
+        'w-72 p-6', // Mobile: sempre expandida quando visível
+        useHeader.hiddenIconSide ? 'md:hidden' : '',
     ]">
+
         <section
             :class="['flex items-center', useHeader.hiddenSide ? 'gap-0 justify-center' : 'gap-4 justify-start  ']">
 
-            <div v-if="!useHeader.hiddenSide"
+
+            <div v-if="!useHeader.hiddenSide "
                 :class="['w-12 h-12 rounded-2xl bg-pumpink flex justify-center items-center cursor-pointer']"
                 @click="useHeader.hiddenSide = !useHeader.hiddenSide">
                 <Mountain class="text-whiteSmoke" />
@@ -48,7 +67,7 @@ const sliderY = computed(() =>
             <div v-else @click="useHeader.hiddenSide = !useHeader.hiddenSide"
                 class="w-12 h-12 rounded-2xl bg-pumpink flex items-center justify-center shrink-0 cursor-pointer">
                 <span class="text-whiteSmoke font-bold text-xl uppercase">{{ auth.usuarioLogado?.nome[0]
-                    }}</span>
+                }}</span>
             </div>
             <div
                 :class="['overflow-hidden transition-all duration-300', useHeader.hiddenSide ? 'w-0 hidden' : 'w-auto opacity-100']">
@@ -91,7 +110,7 @@ const sliderY = computed(() =>
                     :class="[useHeader.hiddenSide ? 'hidden' : 'w-auto opacity-100']">
                     <div class="w-10 h-10 rounded-full bg-pumpink flex items-center justify-center shrink-0">
                         <span class="text-whiteSmoke font-bold text-xl uppercase">{{ auth.usuarioLogado?.nome[0]
-                            }}</span>
+                        }}</span>
                     </div>
                     <div :class="['overflow-hidden transition-all duration-300', useHeader.hiddenSide ? 'hidden' : '']">
                         <p class="text-whiteSmoke font-bold text-sm whitespace-nowrap">{{ auth.usuarioLogado?.nome ??
@@ -109,3 +128,4 @@ const sliderY = computed(() =>
         </footer>
     </header>
 </template>
+

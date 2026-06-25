@@ -7,6 +7,8 @@ import { ref } from "vue";
 export const useHeaderStore = defineStore(("headerStore"), () => {
     
     const hiddenSide = ref(false);
+    const hiddenIconSide = ref(false);
+    const isMobileOpen = ref(false);
 
     const navItems = [
         { to: '/usuario', label: "Usuário", icon: User },
@@ -15,6 +17,8 @@ export const useHeaderStore = defineStore(("headerStore"), () => {
 
     return {
         hiddenSide,
+        hiddenIconSide,
         navItems,
+        isMobileOpen,
     };
 })

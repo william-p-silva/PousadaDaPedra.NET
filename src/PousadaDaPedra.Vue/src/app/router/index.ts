@@ -23,12 +23,12 @@ const router = createRouter({
         },
         {
           path: "/usuario",
-          name: "usuario",
+          name: "Usuario",
           component: UsuarioView,
         },
         {
           path: "/criar/tarefa",
-          name: "cadastrarTarefa",
+          name: "Cadastrar Tarefa",
           component: CriarTarefaView,
         },
       ],
