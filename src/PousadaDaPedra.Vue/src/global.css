@@ -13,7 +13,7 @@
 
 @layer components {
     .btn {
-        @apply flex gap-2 justify-center items-center w-full ;
+        @apply flex gap-2 justify-center items-center w-full cursor-pointer ;
         @apply p-3 rounded-xl text-whiteSmoke font-bold;
         @apply transition-all duration-150;
     };

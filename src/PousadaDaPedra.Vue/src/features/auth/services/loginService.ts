@@ -45,3 +45,22 @@ export async function verificarAuthService() {
 
     return result.data;
 }
+
+
+export async function logoutService() {
+    const response = await fetch("http://localhost:5171/api/Usuario/logout", {
+        credentials: "include",
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+    })
+
+    if (!response.ok) return null;
+
+    const json = await response.json();
+
+    if (!json.success) return null;
+
+
+    return json;
+}

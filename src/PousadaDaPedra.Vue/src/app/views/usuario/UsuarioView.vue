@@ -16,11 +16,13 @@ onMounted(async () => {
 
 
 <template>
-    <section class="flex flex-wrap justify-center items-center gap-4 m-auto w-full p-4 ">
+    <section class="flex flex-wrap transition-all duration-300 ease-in-out justify-center items-center gap-4 m-auto w-full p-4 ">
         <div v-if="tarefaStore.isLoading || tarefaStore.tarefas === null"
             class="h-full flex justify-center items-center">
             <Loading text="Buscando Tarefas" />
         </div>
-        <Tarefa v-else v-for="tarefa in tarefaStore.tarefas" :tarefa="tarefa" :key="tarefa.id" />
+        <Tarefa v-else v-for="tarefa in tarefaStore.tarefas" :tarefa="tarefa" :key="tarefa.id" 
+        class="transition-all duration-300 ease-in-out"
+        />
     </section>
 </template>

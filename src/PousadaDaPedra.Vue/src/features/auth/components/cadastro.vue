@@ -31,7 +31,7 @@ const mostrarConfirmSenha = ref(false);
 
 
     <div class="flex flex-col gap-4 justify-center items-center bg-whiteSmoke w-full h-full">
-        <form class="flex flex-col gap-4 w-[60%] h-full justify-center lg:p-4 " @submit.prevent="submit">
+        <form class="flex flex-col gap-4 w-[80%] lg:w-[60%] h-full justify-center lg:p-4 " @submit.prevent="submit">
 
             <div class="flex flex-col mb-6 gap-1">
                 <h1 class="text-[26px] font-bold text-nights">Comece agora</h1>

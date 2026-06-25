@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { type UsuarioLoginResponse, type loginUsuarioType } from "../types/usuarioType";
 import { useRouter } from "vue-router";
 import { loginUsuarioSchema } from "../types/loginSchema";
-import { LoginUsuarioService, verificarAuthService } from "../services/loginService";
+import { LoginUsuarioService, logoutService, verificarAuthService } from "../services/loginService";
 
 
 
@@ -72,6 +72,29 @@ export const loginUsuarioStore = defineStore(('login'), () => {
         }
     }
 
+    async function logout() {
+        try {
+            isLoading.value = true;
+            const response = await logoutService();
+            console.log(response)
+
+            if (response === null){
+                error.value = "Ocorreu um [Erro] por favor tente novamente mais tarde"
+                return false;
+            }
+
+            limparForm();
+            isAuthenticated.value = false;
+            usuarioLogado.value = null;
+            return true;
+        } catch (err) {
+            error.value = "Erro inesperado, tente novamente mais tarde";
+            return false;
+        } finally {
+            isLoading.value = false;
+        }
+    }
+
     function limparForm() {
         usuarioLogin.value = {
             email: "",
@@ -90,5 +113,6 @@ export const loginUsuarioStore = defineStore(('login'), () => {
         handleSubmit,
         verificarAuth,
         limparForm,
+        logout,
     }
 })

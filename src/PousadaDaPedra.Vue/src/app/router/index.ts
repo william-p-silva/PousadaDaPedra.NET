@@ -54,7 +54,7 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   const authStore = loginUsuarioStore()
 
-  const publicRoutes = ['/login', '/cadastro', '/', '/auth', '/usuario']
+  const publicRoutes = ['/login', '/cadastro', '/', '/auth']
   if (publicRoutes.includes(to.path)) return true
 
   await authStore.verificarAuth();

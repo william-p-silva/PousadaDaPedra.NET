@@ -18,7 +18,7 @@ const props = defineProps<{
 
 <template>
 
-    <main class="p-4 bg-white flex flex-col justify-between w-66 min-h-112.5 text-sm rounded-lg shadow-md shadow-black/40 text-zinc-700">
+    <main class="p-4 bg-white flex flex-col justify-between w-66 min-h-112.5 text-sm rounded-lg shadow-md shadow-black/40 text-zinc-700 transition-all duration-300 ease-in-out">
         <header class="flex justify-between mb-4 items-center">
             <h1 class="font-bold text-xl text-gray-800 w-43 wrap-break-word ">{{ tarefa.titulo ?? "Titulo" }}</h1>
             <span :class="[tarefaStyle.getStyleDificuldade(tarefa.dificuldade), 'px-2 py-1 rounded-md font-semibold']">{{ formatarDificuldade(tarefa.dificuldade) }}</span>
